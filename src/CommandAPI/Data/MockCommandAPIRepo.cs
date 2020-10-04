@@ -1,4 +1,5 @@
 using CommandAPI.Models;
+using System;
 using System.Collections.Generic;
 
 namespace CommandAPI.Data
@@ -46,12 +47,32 @@ namespace CommandAPI.Data
 
 		public void CreateCommand(Command cmd)
 		{
-			throw new System.NotImplementedException();
+			if (cmd == null)
+			{
+				throw new ArgumentNullException(nameof(cmd));
+			}
+
+			if(_commands.ContainsKey(cmd.Id))
+			{
+				throw new Exception($"Command {cmd.Id} already exists in store");
+			}
+
+			_commands[cmd.Id] = cmd;
 		}
 
 		public void DeleteCommand(Command cmd)
 		{
-			throw new System.NotImplementedException();
+			if (cmd == null)
+			{
+				throw new ArgumentNullException(nameof(cmd));
+			}
+
+			if (!_commands.ContainsKey(cmd.Id))
+			{
+				throw new Exception($"Command {cmd.Id} does not exist in store");
+			}
+
+			_commands.Remove(cmd.Id);
 		}
 
 		public IEnumerable<Command> GetAllCommands()
@@ -66,12 +87,22 @@ namespace CommandAPI.Data
 
 		public bool SaveChanges()
 		{
-			throw new System.NotImplementedException();
+			return true;
 		}
 
 		public void UpdateCommand(Command cmd)
 		{
-			throw new System.NotImplementedException();
+			if (cmd == null)
+			{
+				throw new ArgumentNullException(nameof(cmd));
+			}
+
+			if (!_commands.ContainsKey(cmd.Id))
+			{
+				throw new Exception($"Command {cmd.Id} does not exist in store");
+			}
+
+			_commands[cmd.Id] = cmd;
 		}
 	}
 }
