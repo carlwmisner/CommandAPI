@@ -48,6 +48,7 @@ namespace CommandAPI.Controllers
 		[HttpPost]
 		public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto commandCreateDto)
 		{
+			Debug.WriteLine($"CommandsController::CreateCommand()");
 			var commandModel = _mapper.Map<Command>(commandCreateDto);
 			_repository.CreateCommand(commandModel);
 			_repository.SaveChanges();
@@ -58,6 +59,7 @@ namespace CommandAPI.Controllers
 		[HttpDelete("{id}")]
 		public ActionResult DeleteCommand(int id)
 		{
+			Debug.WriteLine($"CommandsController::DeleteCommand({id})");
 			var commandModelFromRepo = _repository.GetCommandById(id);
 
 			if (commandModelFromRepo == null)
@@ -73,6 +75,7 @@ namespace CommandAPI.Controllers
 		[HttpPatch("{id}")]
 		public ActionResult PartialCommandUpdate(int id, JsonPatchDocument<CommandUpdateDto> patchDoc)
 		{
+			Debug.WriteLine($"CommandsController::PartialCommandUpdate()");
 			var commandModelFromRepo = _repository.GetCommandById(id);
 
 			if (commandModelFromRepo == null)
@@ -97,6 +100,7 @@ namespace CommandAPI.Controllers
 		[HttpPut("{id}")]
 		public ActionResult UpdateCommand(int id, CommandUpdateDto commandUpdateDto)
 		{
+			Debug.WriteLine($"CommandsController::UpdateCommand()");
 			var commandModelFromRepo = _repository.GetCommandById(id);
 
 			if (commandModelFromRepo == null)
